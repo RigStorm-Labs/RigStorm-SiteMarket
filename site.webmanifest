@@ -1,0 +1,10 @@
+{
+  "name": "SiteMarket by RigStorm",
+  "short_name": "SiteMarket",
+  "description": "Website design & development studio. Professional websites from ₹3,500.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0D0F",
+  "theme_color": "#0B0D0F",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

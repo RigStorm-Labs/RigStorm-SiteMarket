@@ -1,1097 +1,350 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>RigStorm SiteMarket Hub – Your Hub for Digital Growth</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --black: #050A14;
-    --navy: #0A1628;
-    --steel: #1A2744;
-    --cyan: #00F5FF;
-    --cyan-dim: rgba(0,245,255,0.15);
-    --cyan-glow: rgba(0,245,255,0.4);
-    --violet: #7B2FFF;
-    --violet-dim: rgba(123,47,255,0.15);
-    --amber: #FFB800;
-    --amber-dim: rgba(255,184,0,0.15);
-    --text: #C8D8F0;
-    --text-muted: #6080A0;
-    --white: #EEF4FF;
-    --border: rgba(0,245,255,0.18);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--navy); }
-  ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 3px; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5vw;
-    height: 64px;
-    background: rgba(5,10,20,0.85);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--cyan);
-    letter-spacing: 0.05em;
-    text-decoration: none;
-  }
-  .nav-logo span { color: var(--violet); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--cyan); }
-
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    padding: 120px 5vw 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* HUD grid background */
-  #home::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,245,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,0.04) 1px, transparent 1px);
-    background-size: 48px 48px;
-    pointer-events: none;
-  }
-  /* radial vignette */
-  #home::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 50%, transparent 30%, var(--black) 100%);
-    pointer-events: none;
-  }
-
-  /* ambient orbs */
-  .orb {
-    position: absolute; border-radius: 50%;
-    filter: blur(90px); pointer-events: none; opacity: 0.35;
-    animation: orbPulse 8s ease-in-out infinite alternate;
-  }
-  .orb-1 { width: 420px; height: 420px; background: var(--violet); top: -80px; left: -100px; }
-  .orb-2 { width: 380px; height: 380px; background: var(--cyan); bottom: -60px; right: -80px; animation-delay: 3s; }
-  @keyframes orbPulse { from { opacity: 0.25; transform: scale(1); } to { opacity: 0.45; transform: scale(1.12); } }
-
-  .hero-content { position: relative; z-index: 2; max-width: 860px; }
-
-  .hero-eyebrow {
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    border: 1px solid var(--border);
-    padding: 6px 18px;
-    border-radius: 2px;
-    margin-bottom: 2rem;
-    background: var(--cyan-dim);
-  }
-
-  .hero-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(2.4rem, 6vw, 4.6rem);
-    font-weight: 900;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    color: var(--white);
-    margin-bottom: 1rem;
-  }
-  .hero-title .accent-cyan { color: var(--cyan); text-shadow: 0 0 28px var(--cyan-glow); }
-  .hero-title .accent-violet { color: var(--violet); }
-
-  .hero-sub {
-    font-size: 1.15rem;
-    font-weight: 300;
-    color: var(--text-muted);
-    max-width: 520px;
-    margin: 0 auto 2.6rem;
-    line-height: 1.75;
-  }
-
-  .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-  .btn-primary {
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 14px 32px;
-    background: var(--cyan);
-    color: var(--black);
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: box-shadow 0.25s, transform 0.15s;
-  }
-  .btn-primary:hover {
-    box-shadow: 0 0 28px var(--cyan-glow), 0 0 60px rgba(0,245,255,0.2);
-    transform: translateY(-2px);
-  }
-
-  .btn-ghost {
-    display: inline-block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 13px 32px;
-    background: transparent;
-    color: var(--cyan);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    cursor: pointer;
-    transition: border-color 0.25s, background 0.25s, transform 0.15s;
-  }
-  .btn-ghost:hover {
-    border-color: var(--cyan);
-    background: var(--cyan-dim);
-    transform: translateY(-2px);
-  }
-
-  /* scanning line */
-  .scan-line {
-    position: absolute; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-    animation: scan 6s linear infinite;
-    opacity: 0.5; pointer-events: none; z-index: 1;
-  }
-  @keyframes scan { from { top: 0; } to { top: 100%; } }
-
-  /* ── SECTION BASE ── */
-  section { padding: 100px 5vw; }
-  .section-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 0.8rem;
-  }
-  .section-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.2;
-    margin-bottom: 1.2rem;
-  }
-  .section-body {
-    color: var(--text-muted);
-    max-width: 600px;
-    line-height: 1.8;
-    font-size: 0.97rem;
-  }
-  .divider {
-    width: 48px; height: 2px;
-    background: linear-gradient(90deg, var(--cyan), var(--violet));
-    margin: 1.4rem 0 2.2rem;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: var(--navy); }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5vw;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.4rem;
-  }
-  .stat-card {
-    background: var(--steel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.6rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .stat-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, var(--cyan), transparent);
-  }
-  .stat-num {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--cyan);
-    text-shadow: 0 0 18px var(--cyan-glow);
-  }
-  .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem; }
-
-  /* ── SERVICES ── */
-  #services { background: var(--black); }
-  .services-inner { max-width: 1100px; margin: 0 auto; }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.4rem;
-    margin-top: 2.8rem;
-  }
-  .service-card {
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2rem;
-    transition: border-color 0.25s, transform 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .service-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
-  .service-card::after {
-    content: '';
-    position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--violet), transparent);
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
-  .service-card:hover::after { opacity: 1; }
-  .service-icon {
-    width: 42px; height: 42px;
-    background: var(--cyan-dim);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4rem;
-    margin-bottom: 1.2rem;
-  }
-  .service-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--white);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.6rem;
-  }
-  .service-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
-
-  /* ── PRICING ── */
-  #pricing { background: var(--navy); }
-  .pricing-inner { max-width: 960px; margin: 0 auto; }
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.4rem;
-    margin-top: 2.8rem;
-  }
-  .price-card {
-    background: var(--steel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s, border-color 0.2s;
-  }
-  .price-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
-  .price-card.featured {
-    border-color: var(--cyan);
-    background: linear-gradient(160deg, var(--steel), rgba(0,245,255,0.07));
-  }
-  .price-card.featured::before {
-    content: 'POPULAR';
-    position: absolute; top: 12px; right: 12px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    color: var(--black);
-    background: var(--cyan);
-    padding: 3px 8px;
-    border-radius: 2px;
-  }
-  .price-tier {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 1rem;
-  }
-  .price-amt {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.4rem;
-    font-weight: 900;
-    color: var(--white);
-  }
-  .price-amt .currency { font-size: 1.2rem; vertical-align: super; }
-  .price-note { font-size: 0.78rem; color: var(--text-muted); margin: 0.4rem 0 1.4rem; }
-  .price-features { list-style: none; text-align: left; font-size: 0.85rem; color: var(--text); }
-  .price-features li { padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .price-features li::before { content: '◈ '; color: var(--cyan); font-size: 0.7rem; }
-
-  /* ── REQUEST SITE FORM ── */
-  #request {
-    background: var(--black);
-    position: relative;
-  }
-  #request::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(123,47,255,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(123,47,255,0.04) 1px, transparent 1px);
-    background-size: 36px 36px;
-    pointer-events: none;
-  }
-  .request-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
-
-  /* terminal window chrome */
-  .terminal-chrome {
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 0 60px rgba(0,245,255,0.06), 0 0 120px rgba(123,47,255,0.06);
-  }
-  .terminal-titlebar {
-    background: var(--steel);
-    padding: 10px 16px;
-    display: flex; align-items: center; gap: 8px;
-    border-bottom: 1px solid var(--border);
-  }
-  .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .dot-r { background: #FF5F56; }
-  .dot-y { background: #FFBD2E; }
-  .dot-g { background: #27C93F; }
-  .terminal-title {
-    margin-left: 8px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-  }
-  .form-body { padding: 2.4rem; }
-
-  /* form fields */
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  .form-group { margin-bottom: 1.4rem; }
-  label {
-    display: block;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.62rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 0.5rem;
-  }
-  .field-note { font-size: 0.75rem; color: var(--text-muted); font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0; font-weight: 400; display: block; margin-bottom: 0.45rem; }
-
-  input[type=text], input[type=tel], input[type=email], select, textarea {
-    width: 100%;
-    background: var(--steel);
-    border: 1px solid rgba(0,245,255,0.2);
-    border-radius: 3px;
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    padding: 10px 14px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  input[type=text]:focus, input[type=tel]:focus, input[type=email]:focus, select:focus, textarea:focus {
-    border-color: var(--cyan);
-    box-shadow: 0 0 0 3px rgba(0,245,255,0.08);
-  }
-  select { appearance: none; cursor: pointer; }
-  select option { background: var(--navy); }
-
-  .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 0.6rem; }
-  .radio-option, .checkbox-option {
-    display: flex; align-items: center; gap: 0.8rem;
-    cursor: pointer; font-size: 0.88rem; color: var(--text);
-  }
-  input[type=radio], input[type=checkbox] {
-    width: 16px; height: 16px;
-    accent-color: var(--cyan);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  /* dynamic price display */
-  .price-display {
-    background: var(--steel);
-    border: 1px solid var(--cyan);
-    border-radius: 4px;
-    padding: 1.2rem 1.6rem;
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 1.6rem;
-  }
-  .price-display-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--cyan);
-  }
-  .price-display-amt {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 900;
-    color: var(--amber);
-    text-shadow: 0 0 18px rgba(255,184,0,0.4);
-    transition: all 0.3s;
-  }
-
-  .error-msg { font-size: 0.78rem; color: #FF5F56; margin-top: 0.35rem; display: none; }
-  .error-msg.visible { display: block; }
-
-  .success-banner {
-    display: none;
-    background: linear-gradient(90deg, rgba(39,201,63,0.12), rgba(0,245,255,0.08));
-    border: 1px solid #27C93F;
-    border-radius: 4px;
-    padding: 1.4rem 1.8rem;
-    text-align: center;
-    margin-top: 1.2rem;
-  }
-  .success-banner.visible { display: block; }
-  .success-banner h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    color: #27C93F;
-    letter-spacing: 0.06em;
-    margin-bottom: 0.4rem;
-  }
-  .success-banner p { font-size: 0.88rem; color: var(--text-muted); }
-
-  .submit-btn {
-    width: 100%;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 14px;
-    background: linear-gradient(90deg, var(--cyan), #00BDCC);
-    color: var(--black);
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: box-shadow 0.25s, transform 0.15s, opacity 0.2s;
-  }
-  .submit-btn:hover {
-    box-shadow: 0 0 32px var(--cyan-glow);
-    transform: translateY(-2px);
-  }
-  .submit-btn:active { transform: translateY(0); opacity: 0.9; }
-
-  /* ── CONTACT ── */
-  #contact { background: var(--navy); }
-  .contact-inner { max-width: 960px; margin: 0 auto; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-top: 2.8rem; }
-  .contact-card {
-    background: var(--steel);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1.8rem;
-  }
-  .contact-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.4rem; }
-  .contact-icon {
-    width: 36px; height: 36px;
-    background: var(--cyan-dim);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; flex-shrink: 0;
-  }
-  .contact-item-title { font-size: 0.75rem; font-weight: 600; color: var(--cyan); font-family: 'Orbitron', sans-serif; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
-  .contact-item-val { font-size: 0.88rem; color: var(--text-muted); }
-
-  .social-links { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem; }
-  .social-link {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--steel);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 7px 14px;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .social-link:hover { border-color: var(--cyan); color: var(--cyan); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: #030810;
-    border-top: 1px solid var(--border);
-    padding: 3.4rem 5vw 2rem;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 3vw;
-    max-width: 1100px;
-    margin: 0 auto 2.4rem;
-  }
-  .footer-logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--cyan);
-    margin-bottom: 0.8rem;
-  }
-  .footer-tagline {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-bottom: 1.2rem;
-    font-style: italic;
-    letter-spacing: 0.03em;
-  }
-  .footer-col-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--cyan);
-    margin-bottom: 1rem;
-  }
-  .footer-links { list-style: none; }
-  .footer-links li { margin-bottom: 0.5rem; }
-  .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--cyan); }
-  .footer-bottom {
-    max-width: 1100px; margin: 0 auto;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding-top: 1.4rem;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 0.6rem;
-  }
-  .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
-  .footer-bottom .powered {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    color: var(--violet);
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 768px) {
-    .nav-links { display: none; }
-    .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .price-display { flex-direction: column; gap: 0.5rem; text-align: center; }
-    .footer-grid { grid-template-columns: 1fr; }
-  }
-
-  /* ── UTILITY ── */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Design &amp; Development Services | SiteMarket by RigStorm</title>
+  <meta name="description" content="SiteMarket is a website design & development studio. Professional business websites starting from ₹3,500, and custom e-commerce, CRM & web applications quoted on requirements.">
+  <link rel="canonical" href="https://www.rigstormsitemarket.linkpc.net/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SiteMarket by RigStorm">
+  <meta property="og:title" content="Website Design & Development Services | SiteMarket">
+  <meta property="og:description" content="We build websites that make businesses look serious. Standard websites from ₹3,500. Advanced web apps on custom quote.">
+  <meta property="og:url" content="https://www.rigstormsitemarket.linkpc.net/">
+  <meta property="og:image" content="https://www.rigstormsitemarket.linkpc.net/assets/img/sitemarket-dark.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Website Design & Development Services | SiteMarket">
+  <meta name="twitter:description" content="Professional websites from ₹3,500. Custom web applications on quote. Real work, clear pricing.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0B0D0F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Space+Mono&display=swap" rel="stylesheet">
+  <script>(function(){try{var s=localStorage.getItem("sitemarket-theme");var t=s||(window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.setAttribute("data-theme",t)}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RigStorm SiteMarket",
+    "url": "https://www.rigstormsitemarket.linkpc.net/",
+    "logo": "https://www.rigstormsitemarket.linkpc.net/assets/img/sitemarket-dark.png",
+    "parentOrganization": { "@type": "Organization", "name": "RigStorm Group" },
+    "email": "rigstormlabs@gmail.com",
+    "description": "Website design & development studio. Professional websites from ₹3,500; custom web applications on quote."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SiteMarket",
+    "url": "https://www.rigstormsitemarket.linkpc.net/"
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav>
-  <a href="#home" class="nav-logo">Rig<span>Storm</span> Hub</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#request">Request Site</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="home">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="scan-line"></div>
-  <div class="hero-content">
-    <span class="hero-eyebrow">◈ System Online — RigStorm Labs</span>
-    <h1 class="hero-title">
-      <span class="accent-cyan">RigStorm</span><br />
-      SiteMarket <span class="accent-violet">Hub</span>
-    </h1>
-    <p class="hero-sub">Your Hub for Digital Growth. We build fast, feature-rich websites that turn traffic into revenue — powered by next-gen infrastructure.</p>
-    <div class="hero-ctas">
-      <a href="#request" class="btn-primary">Request Your Site</a>
-      <a href="#services" class="btn-ghost">Explore Services</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div>
-      <p class="section-label">◈ About Us</p>
-      <h2 class="section-title">Engineered for<br />the Digital Frontier</h2>
-      <div class="divider"></div>
-      <p class="section-body">RigStorm SiteMarket Hub is a full-service digital presence agency operating at the intersection of design and technology. We specialise in deploying high-performance websites — from lightweight non-root deployments to fully branded rooted domains — with seamless payment integration and zero compromise on speed.</p>
-      <br />
-      <p class="section-body" style="margin-top:0.6rem;">Whether you're launching your first online storefront or scaling an established brand, our team delivers precision-engineered digital properties tailored to your growth trajectory.</p>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">500+</div><div class="stat-label">Sites Deployed</div></div>
-      <div class="stat-card"><div class="stat-num">98%</div><div class="stat-label">Client Satisfaction</div></div>
-      <div class="stat-card"><div class="stat-num">48hr</div><div class="stat-label">Avg. Turnaround</div></div>
-      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Payment Gateways</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="services-inner">
-    <p class="section-label">◈ What We Deploy</p>
-    <h2 class="section-title">Core Services</h2>
-    <div class="divider"></div>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">🌐</div>
-        <div class="service-title">Non-Root Domains</div>
-        <p class="service-desc">Fast subdomain deployments on premium platforms like publicvm.com, run.place, and more. Perfect for rapid launches and MVPs.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🔒</div>
-        <div class="service-title">Rooted Domains</div>
-        <p class="service-desc">Fully branded .com / .org / .net domains with SSL, custom DNS, and a professional identity that scales with your brand.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">💳</div>
-        <div class="service-title">Payment Integration</div>
-        <p class="service-desc">Plug in GPay, Razorpay, PhonePe, or PayPal — we wire your payment stack so you can start accepting orders from day one.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⚡</div>
-        <div class="service-title">Performance Tuning</div>
-        <p class="service-desc">Lighthouse-optimised delivery, CDN configuration, and mobile-first responsive design baked into every build.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🛡️</div>
-        <div class="service-title">Security & Uptime</div>
-        <p class="service-desc">HTTPS everywhere, DDoS mitigation, automated backups and 99.9% uptime SLA on all managed deployments.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">📊</div>
-        <div class="service-title">Analytics & Growth</div>
-        <p class="service-desc">Built-in analytics, conversion tracking, and monthly performance reports to keep your growth on trajectory.</p>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="SiteMarket home">
+        <img class="logo--dark" data-dark="/assets/img/sitemarket-dark.png" data-light="/assets/img/sitemarket-light.png" src="/assets/img/sitemarket-dark.png" alt="SiteMarket by RigStorm" width="220" height="38">
+        <img class="logo--light" data-dark="/assets/img/sitemarket-dark.png" data-light="/assets/img/sitemarket-light.png" src="/assets/img/sitemarket-light.png" alt="" aria-hidden="true" width="220" height="38">
+      </a>
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="/" aria-current="page">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="/work.html">Work</a>
+        <a href="/process.html">Process</a>
+        <a href="/pricing.html">Pricing</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="theme-toggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Toggle light / dark mode"><span class="icon-moon" aria-hidden="true">◐</span><span class="icon-sun" aria-hidden="true">◑</span></button>
+        <a class="btn btn--primary btn--small header-cta" href="/request.html">Start a Project</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobileNav" aria-label="Open menu">☰</button>
       </div>
     </div>
-  </div>
-</section>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/services.html">Services</a>
+      <a href="/work.html">Work</a>
+      <a href="/process.html">Process</a>
+      <a href="/pricing.html">Pricing</a>
+      <a href="/about.html">About</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/request.html">Start a Project →</a>
+    </nav>
+  </header>
 
-<!-- PRICING -->
-<section id="pricing">
-  <div class="pricing-inner">
-    <p class="section-label">◈ Transparent Pricing</p>
-    <h2 class="section-title">Simple, Flat-Rate Plans</h2>
-    <div class="divider"></div>
-    <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-tier">Non-Root</div>
-        <div class="price-amt"><span class="currency">₹</span>1000</div>
-        <div class="price-note">Subdomain deployment</div>
-        <ul class="price-features">
-          <li>publicvm.com / run.place / jo3.org</li>
-          <li>Mobile-responsive design</li>
-          <li>SSL certificate</li>
-          <li>48-hour delivery</li>
-        </ul>
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <p class="mono mono--accent">01 / Website design &amp; development studio — RigStorm Group</p>
+        <h1 id="hero-title">We build websites that make businesses <span class="accent-word">look serious.</span></h1>
+        <p class="lead">SiteMarket designs and builds professional websites for small businesses, entrepreneurs, creators, and organizations — from focused landing pages to full-stack web applications. You explain what you need. We determine the right solution and build it.</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/request.html">Start a Project</a>
+          <a class="btn btn--ghost" href="/work.html">View Our Work</a>
+        </div>
+        <div class="hero-meta">
+          <span class="trust-chip"><span class="dot" aria-hidden="true"></span><span><strong>15+ Sites Deployed</strong> · real projects, real work</span></span>
+          <span class="mono">Standard websites from ₹3,500 →</span>
+        </div>
       </div>
-      <div class="price-card featured">
-        <div class="price-tier">Non-Root + Payments</div>
-        <div class="price-amt"><span class="currency">₹</span>1500</div>
-        <div class="price-note">Subdomain + payment gateway</div>
-        <ul class="price-features">
-          <li>All Non-Root features</li>
-          <li>GPay / Razorpay / PhonePe / PayPal</li>
-          <li>Checkout flow included</li>
-          <li>Priority support</li>
-        </ul>
+    </section>
+
+    <!-- PROOF -->
+    <section class="proof-band" aria-label="SiteMarket at a glance">
+      <div class="wrap proof-inner">
+        <div class="proof-cell reveal"><div class="num">15+</div><div class="lbl">Sites deployed — the number we can stand behind</div></div>
+        <div class="proof-cell reveal"><div class="num">₹3,500</div><div class="lbl">Starting price for a standard professional website</div></div>
+        <div class="proof-cell reveal"><div class="num">₹15K+</div><div class="lbl">Starting point for advanced &amp; custom web applications</div></div>
+        <div class="proof-cell reveal"><div class="num">Human</div><div class="lbl">Every enquiry reviewed by a real person, not a bot</div></div>
       </div>
-      <div class="price-card">
-        <div class="price-tier">Rooted Domain</div>
-        <div class="price-amt"><span class="currency">₹</span>2000</div>
-        <div class="price-note">.com / .org / .net</div>
-        <ul class="price-features">
-          <li>Custom domain + DNS setup</li>
-          <li>Professional brand identity</li>
-          <li>SSL + CDN included</li>
-          <li>72-hour delivery</li>
-        </ul>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" aria-labelledby="services-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="mono">02 / What we build</span>
+          <h2 id="services-title">Websites first. <span class="accent-word">Everything else in support.</span></h2>
+          <p>Services organized around your business goal — not technical jargon. If you can describe the outcome you want, we can map it to the right website or web application.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card reveal">
+            <span class="mono mono--accent">A — Websites · from ₹3,500</span>
+            <h3>Business &amp; showcase websites</h3>
+            <p>Landing pages, business sites, portfolios, personal sites, and blogs — designed to make you look legitimate and ready for customers.</p>
+            <ul>
+              <li>Landing pages</li>
+              <li>Business &amp; showcase sites</li>
+              <li>Portfolios &amp; personal sites</li>
+              <li>Blogs &amp; informational sites</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <span class="mono mono--accent">B — Advanced · from ₹15,000</span>
+            <h3>Web applications &amp; platforms</h3>
+            <p>Database-driven products with logins, dashboards, payments, and workflows — quoted specifically on your requirements.</p>
+            <ul>
+              <li>E-commerce websites</li>
+              <li>CRMs &amp; dashboards</li>
+              <li>Booking &amp; customer portals</li>
+              <li>Custom web applications</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <span class="mono mono--accent">C — Supporting</span>
+            <h3>Digital infrastructure</h3>
+            <p>The plumbing that keeps a site fast, secure, and measurable — included where your project genuinely needs it.</p>
+            <ul>
+              <li>Domain setup</li>
+              <li>Payments, analytics &amp; performance</li>
+              <li>Security, deployment &amp; maintenance</li>
+            </ul>
+          </article>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/services.html">Explore all services</a>
+          <a class="btn btn--ghost" href="/pricing.html">See pricing</a>
+        </div>
       </div>
-      <div class="price-card">
-        <div class="price-tier">Rooted + Payments</div>
-        <div class="price-amt"><span class="currency">₹</span>2500</div>
-        <div class="price-note">Full-stack digital presence</div>
-        <ul class="price-features">
-          <li>All Rooted Domain features</li>
-          <li>Full payment gateway suite</li>
-          <li>Dedicated onboarding call</li>
-          <li>30-day post-launch support</li>
-        </ul>
+    </section>
+
+    <!-- FEATURED WORK -->
+    <section class="section section--tight" aria-labelledby="work-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="mono">03 / Proof, not promises</span>
+          <h2 id="work-title">Real work, <span class="accent-word">not mockups.</span></h2>
+          <p>Two live client websites — open them and judge the work directly. Our portfolio grows with every project we ship.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card card--featured reveal">
+            <span class="flag">Live project</span>
+            <span class="mono mono--accent">Export &amp; Import company</span>
+            <h3>CosmoGlide Eximp</h3>
+            <p>Business website for an export &amp; import company spanning agro-commodities, FMCG, general merchandise, and woods — with sourcing capabilities, a clear enquiry process, and direct WhatsApp, call, and email contact.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary btn--small" href="https://cosmoglide.run.place/" target="_blank" rel="noopener">Visit live site ↗</a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <span class="mono mono--accent">Car accessories · Thondi, TN</span>
+            <h3>Five Star Car Accessories</h3>
+            <p>Business website for an automotive accessories &amp; modifications business — seat covers, Android stereos, audio tuning, LED lighting, 7D mats, steering wraps, rear cameras, and chrome accessories — with showroom directions and WhatsApp enquiry.</p>
+            <div class="btn-row">
+              <a class="btn btn--primary btn--small" href="https://fivestaraccessories.run.place/" target="_blank" rel="noopener">Visit live site ↗</a>
+            </div>
+          </article>
+        </div>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/work.html">See full project details</a>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- REQUEST SITE FORM -->
-<section id="request">
-  <div class="request-inner">
-    <p class="section-label" style="text-align:center;">◈ Deploy Your Site</p>
-    <h2 class="section-title" style="text-align:center;">Request a Site</h2>
-    <div class="divider" style="margin:1.4rem auto 2.4rem;"></div>
-
-    <div class="terminal-chrome">
-      <div class="terminal-titlebar">
-        <div class="dot dot-r"></div>
-        <div class="dot dot-y"></div>
-        <div class="dot dot-g"></div>
-        <span class="terminal-title">RIGSTORM // SITE REQUEST TERMINAL v2.6</span>
+    <!-- PRICING -->
+    <section class="section" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="mono">04 / Clear starting points</span>
+          <h2 id="pricing-title">Pricing without <span class="accent-word">the maze.</span></h2>
+          <p>One transparent entry price. One honest custom-quote path for everything bigger. No fake discounts, no forced urgency.</p>
+        </div>
+        <div class="pricing-grid">
+          <article class="card card--featured reveal">
+            <span class="flag">Most popular starting point</span>
+            <span class="mono mono--accent">Standard websites</span>
+            <p class="price">from ₹3,500</p>
+            <p>For landing pages, showcase sites, portfolios, blogs, and small business websites.</p>
+            <ul class="check-list">
+              <li>Professional multi-section website</li>
+              <li>Mobile-responsive design</li>
+              <li>Contact / enquiry flow</li>
+              <li>Basic SEO setup</li>
+              <li>Deployment handled</li>
+            </ul>
+            <a class="btn btn--primary" href="/request.html">Start a Website</a>
+            <p class="fine-print">2nd-level domain arrangement included per the selected offering. TLD / 1st-level domain registration costs are separate.</p>
+          </article>
+          <article class="card reveal">
+            <span class="mono mono--accent">Advanced projects</span>
+            <p class="price">₹15,000 – ₹50,000+</p>
+            <p>For e-commerce, CRMs, dashboards, booking systems, portals, and custom platforms.</p>
+            <ul class="check-list">
+              <li>Full-stack / database-driven build</li>
+              <li>Accounts, dashboards &amp; workflows</li>
+              <li>Payments &amp; integrations where needed</li>
+              <li>Scoped &amp; quoted on your requirements</li>
+            </ul>
+            <a class="btn btn--ghost" href="/request.html">Request a Custom Quote</a>
+            <p class="fine-print">Tell us what you need. We review the requirements and provide a project-specific quote.</p>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <div class="form-body">
-        <form id="siteRequestForm" action="https://formspree.io/f/xdavdppd" method="POST" novalidate>
-
-          <!-- Name + Address -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Full Name <span style="color:#FF5F56">*</span></label>
-              <input type="text" id="name" name="name" placeholder="Your full name" required />
-              <span class="error-msg" id="nameErr">Name is required.</span>
-            </div>
-            <div class="form-group">
-              <label for="address">Address <span style="color:#FF5F56">*</span></label>
-              <input type="text" id="address" name="address" placeholder="City, State / Full address" required />
-              <span class="error-msg" id="addressErr">Address is required.</span>
-            </div>
-          </div>
-
-          <!-- Phone / Email -->
-          <div class="form-row">
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <span class="field-note">Provide phone OR email (at least one required)</span>
-              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" />
-            </div>
-            <div class="form-group">
-              <label for="email">Email Address</label>
-              <span class="field-note">&nbsp;</span>
-              <input type="email" id="email" name="email" placeholder="you@example.com" />
-            </div>
-          </div>
-          <span class="error-msg" id="contactErr" style="margin-top:-0.8rem;margin-bottom:1rem;display:none;">Please provide at least a phone number or email.</span>
-
-          <!-- Domain Prefix -->
-          <div class="form-group">
-            <label for="domainPrefix">Preferred Domain Prefix</label>
-            <input type="text" id="domainPrefix" name="domainPrefix" placeholder="e.g. sitemarket, mystore, techbrand" />
-          </div>
-
-          <!-- Domain Type -->
-          <div class="form-group">
-            <label>Domain Type <span style="color:#FF5F56">*</span></label>
-            <div class="radio-group" id="domainTypeGroup">
-              <label class="radio-option">
-                <input type="radio" name="domainType" value="nonroot" id="typeNonRoot" required />
-                Non-Root Domain &nbsp;<span style="color:var(--amber);font-weight:600;">₹1000</span>&nbsp;<span style="color:var(--text-muted);font-size:0.8rem;">/ ₹1500 with payment</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="domainType" value="rooted" id="typeRooted" />
-                Rooted Domain &nbsp;<span style="color:var(--amber);font-weight:600;">₹2000</span>&nbsp;<span style="color:var(--text-muted);font-size:0.8rem;">/ ₹2500 with payment</span>
-              </label>
-            </div>
-            <span class="error-msg" id="domainTypeErr">Please select a domain type.</span>
-          </div>
-
-          <!-- Domain Suffix -->
-          <div class="form-group">
-            <label for="domainSuffix">Domain Suffix <span style="color:#FF5F56">*</span></label>
-            <select id="domainSuffix" name="domainSuffix">
-              <option value="">— Select domain type first —</option>
-            </select>
-            <span class="error-msg" id="suffixErr">Please select a domain suffix.</span>
-          </div>
-
-          <!-- Payment Integration -->
-          <div class="form-group">
-            <label>Payment Integration (optional)</label>
-            <div class="checkbox-group">
-              <label class="checkbox-option"><input type="checkbox" name="payment" value="GPay" class="payment-cb" /> Google Pay (GPay)</label>
-              <label class="checkbox-option"><input type="checkbox" name="payment" value="Razorpay" class="payment-cb" /> Razorpay</label>
-              <label class="checkbox-option"><input type="checkbox" name="payment" value="PhonePe" class="payment-cb" /> PhonePe</label>
-              <label class="checkbox-option"><input type="checkbox" name="payment" value="PayPal" class="payment-cb" /> PayPal</label>
-            </div>
-          </div>
-
-          <!-- Dynamic Price Display -->
-          <div class="price-display">
-            <div>
-              <div class="price-display-label">Estimated Total</div>
-              <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Updates as you configure</div>
-            </div>
-            <div class="price-display-amt" id="livePrice">—</div>
-          </div>
-
-          <!-- Submit -->
-          <button type="submit" class="submit-btn" id="submitBtn">⬡ Request Site</button>
-
-          <!-- Success banner -->
-          <div class="success-banner" id="successBanner">
-            <h3>✓ Request Submitted Successfully</h3>
-            <p>Your site request has been submitted successfully. Our team will reach out within 24 hours to begin your deployment.</p>
-          </div>
-
-        </form>
+    <!-- PROCESS -->
+    <section class="section section--tight" aria-labelledby="process-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="mono">05 / How it works</span>
+          <h2 id="process-title">Five steps. <span class="accent-word">No guesswork.</span></h2>
+        </div>
+        <div class="steps reveal">
+          <div class="step"><span class="n">01</span><h3>Tell us what you need</h3><p>Share your business, goals, and website requirements in plain language.</p></div>
+          <div class="step step--alt"><span class="n">02</span><h3>We plan</h3><p>We determine structure, features, content, and the right technical approach.</p></div>
+          <div class="step"><span class="n">03</span><h3>We build</h3><p>Design and development begin — kept focused and fast.</p></div>
+          <div class="step step--alt"><span class="n">04</span><h3>Review</h3><p>You review the project and request the adjustments that matter.</p></div>
+          <div class="step"><span class="n">05</span><h3>Launch</h3><p>The finished website is deployed and handed over ready to share.</p></div>
+        </div>
+        <div class="btn-row"><a class="btn btn--ghost" href="/process.html">How the process works in detail</a></div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <p class="section-label">◈ Get in Touch</p>
-    <h2 class="section-title">Contact RigStorm Labs</h2>
-    <div class="divider"></div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-item">
-          <div class="contact-icon">📡</div>
+    <!-- FAQ -->
+    <section class="section" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="mono">06 / Questions, answered</span>
+          <h2 id="faq-title">Before you <span class="accent-word">ask.</span></h2>
+        </div>
+        <div class="faq reveal">
+          <details open>
+            <summary>How much does a website cost?</summary>
+            <p class="faq-a">Standard websites start from ₹3,500 for suitable lightweight projects (landing pages, showcase sites, portfolios, blogs, small business sites). Advanced projects — e-commerce, CRMs, web apps — are quoted on requirements, starting from ₹15,000.</p>
+          </details>
+          <details>
+            <summary>Do you provide domains?</summary>
+            <p class="faq-a">Domain arrangements depend on the project. A 2nd-level domain arrangement is included per the selected offering; TLD / 1st-level domain registration costs are separate. If you already own a domain, we can work with it.</p>
+          </details>
+          <details>
+            <summary>Can you build an e-commerce website?</summary>
+            <p class="faq-a">Yes. E-commerce with product catalogues, payments, and order flows falls under advanced projects and is quoted according to your specific requirements.</p>
+          </details>
+          <details>
+            <summary>Can you build a CRM or dashboard?</summary>
+            <p class="faq-a">Yes. CRMs, dashboards, booking systems, and other custom web applications are exactly what our advanced track is for. Describe the workflow and we will scope it.</p>
+          </details>
+          <details>
+            <summary>How do I get a quote?</summary>
+            <p class="faq-a">Use the project enquiry form to tell us what you need. We review the requirements and get back to you with the appropriate scope and quote. For complex builds, use the detailed <a href="/request.html">custom quote request</a>.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section--tight" aria-labelledby="cta-title" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta-band reveal">
           <div>
-            <div class="contact-item-title">General Enquiries</div>
-            <div class="contact-item-val">hello@rigstormlabs.com</div>
+            <p class="mono mono--accent">07 / Start</p>
+            <h2 id="cta-title">Tell us what you need. <span class="accent-word">We'll build it.</span></h2>
+            <p>One form. Plain language. A real person reviews every enquiry and replies with scope and quote.</p>
           </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">🔧</div>
-          <div>
-            <div class="contact-item-title">Support</div>
-            <div class="contact-item-val">support@rigstormlabs.com</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon">📍</div>
-          <div>
-            <div class="contact-item-title">Location</div>
-            <div class="contact-item-val">India — Remote-first operations</div>
+          <div class="btn-row" style="margin-top:0">
+            <a class="btn btn--primary" href="/request.html">Start a Project</a>
+            <a class="btn btn--ghost" href="/contact.html">Contact Us</a>
           </div>
         </div>
       </div>
-      <div class="contact-card">
-        <div class="contact-item-title" style="margin-bottom:1rem;">Connect With Us</div>
-        <div class="social-links">
-          <a href="#" class="social-link">𝕏 Twitter</a>
-          <a href="#" class="social-link">in LinkedIn</a>
-          <a href="#" class="social-link">⌥ Instagram</a>
-          <a href="#" class="social-link">◉ GitHub</a>
-        </div>
-        <div style="margin-top:1.8rem;padding-top:1.4rem;border-top:1px solid var(--border);">
-          <div class="contact-item-title" style="margin-bottom:0.6rem;">Response Time</div>
-          <p style="font-size:0.86rem;color:var(--text-muted);">We typically respond within <strong style="color:var(--cyan);">2–4 hours</strong> on business days. For urgent requests, use the site request form above.</p>
-        </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <img class="f-logo f-logo-dark" data-dark="/assets/img/sitemarket-dark.png" data-light="/assets/img/sitemarket-light.png" src="/assets/img/sitemarket-dark.png" alt="SiteMarket" width="200" height="34" loading="lazy">
+        <img class="f-logo f-logo-light" data-dark="/assets/img/sitemarket-dark.png" data-light="/assets/img/sitemarket-light.png" src="/assets/img/sitemarket-light.png" alt="" aria-hidden="true" width="200" height="34" loading="lazy">
+        <p>Website design &amp; development studio. We build digital presence that makes businesses look credible, established, and ready to grow.</p>
+        <p class="mono">Where sites meet sales · <span data-year>2026</span></p>
+      </div>
+      <nav aria-label="Sitemap">
+        <h4>Site</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/process.html">Process</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Services">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/services.html#websites">Business websites</a></li>
+          <li><a href="/services.html#advanced">Web applications</a></li>
+          <li><a href="/services.html#ecommerce">E-commerce</a></li>
+          <li><a href="/services.html#crm">CRMs &amp; dashboards</a></li>
+          <li><a href="/pricing.html">Pricing</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:rigstormlabs@gmail.com">rigstormlabs@gmail.com</a> <span class="mono">— general</span></li>
+          <li><a href="mailto:support.rigstorm@gmail.com">support.rigstorm@gmail.com</a> <span class="mono">— support</span></li>
+          <li><a href="/contact.html">Contact page</a></li>
+          <li><a href="/request.html">Start a project →</a></li>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logo">RigStorm Labs</div>
-      <div class="footer-tagline">"Where Sites Meet Sales."</div>
-      <p style="font-size:0.82rem;color:var(--text-muted);max-width:300px;line-height:1.7;">Building the digital infrastructure for tomorrow's businesses, one deployment at a time.</p>
+    <div class="wrap footer-bottom">
+      <span>© <span data-year>2026</span> RigStorm SiteMarket · Part of RigStorm Group</span>
+      <span class="mono">Editorial × Studio × Engineering</span>
     </div>
-    <div>
-      <div class="footer-col-title">Navigation</div>
-      <ul class="footer-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#request">Request Site</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Legal</div>
-      <ul class="footer-links">
-        <li><a href="#">Privacy Policy</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Refund Policy</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© 2025 RigStorm Labs. All rights reserved.</p>
-    <span class="powered">◈ RIGSTORM SITEMARKET HUB — WHERE SITES MEET SALES</span>
-  </div>
-</footer>
+  </footer>
 
-<!-- SCRIPTS -->
-<script>
-  const NON_ROOT_SUFFIXES = [
-    { value: 'publicvm.com',  label: '.publicvm.com' },
-    { value: 'jo3.org',       label: '.jo3.org' },
-    { value: 'run.place',     label: '.run.place' },
-    { value: '2bd.net',       label: '.2bd.net' },
-    { value: 'linkpc.net',    label: '.linkpc.net' },
-    { value: 'work.gd',       label: '.work.gd' },
-  ];
-  const ROOTED_SUFFIXES = [
-    { value: '.com',  label: '.com' },
-    { value: '.org',  label: '.org' },
-    { value: '.net',  label: '.net' },
-  ];
-
-  const suffixSelect  = document.getElementById('domainSuffix');
-  const livePriceEl   = document.getElementById('livePrice');
-  const radios        = document.querySelectorAll('input[name="domainType"]');
-  const paymentCBs    = document.querySelectorAll('.payment-cb');
-
-  function updateSuffixes(type) {
-    suffixSelect.innerHTML = '';
-    const list = type === 'nonroot' ? NON_ROOT_SUFFIXES : ROOTED_SUFFIXES;
-    const placeholder = document.createElement('option');
-    placeholder.value = '';
-    placeholder.textContent = '— Select a suffix —';
-    suffixSelect.appendChild(placeholder);
-    list.forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.value;
-      opt.textContent = s.label;
-      suffixSelect.appendChild(opt);
-    });
-  }
-
-  function updatePrice() {
-    const selectedType = document.querySelector('input[name="domainType"]:checked');
-    if (!selectedType) { livePriceEl.textContent = '—'; return; }
-    const hasPayment = Array.from(paymentCBs).some(cb => cb.checked);
-    let price = 0;
-    if (selectedType.value === 'nonroot') price = hasPayment ? 1500 : 1000;
-    if (selectedType.value === 'rooted')  price = hasPayment ? 2500 : 2000;
-    livePriceEl.textContent = '₹' + price.toLocaleString('en-IN');
-  }
-
-  radios.forEach(r => {
-    r.addEventListener('change', () => {
-      updateSuffixes(r.value);
-      updatePrice();
-    });
-  });
-  paymentCBs.forEach(cb => cb.addEventListener('change', updatePrice));
-
-  // Form validation + submission
-  document.getElementById('siteRequestForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    let valid = true;
-
-    // Name
-    const nameVal = document.getElementById('name').value.trim();
-    const nameErr = document.getElementById('nameErr');
-    if (!nameVal) { nameErr.classList.add('visible'); valid = false; }
-    else nameErr.classList.remove('visible');
-
-    // Address
-    const addrVal = document.getElementById('address').value.trim();
-    const addrErr = document.getElementById('addressErr');
-    if (!addrVal) { addrErr.classList.add('visible'); valid = false; }
-    else addrErr.classList.remove('visible');
-
-    // Phone or email
-    const phoneVal = document.getElementById('phone').value.trim();
-    const emailVal = document.getElementById('email').value.trim();
-    const contactErr = document.getElementById('contactErr');
-    if (!phoneVal && !emailVal) { contactErr.classList.add('visible'); valid = false; }
-    else contactErr.classList.remove('visible');
-
-    // Domain type
-    const domainTypeChecked = document.querySelector('input[name="domainType"]:checked');
-    const domainTypeErr = document.getElementById('domainTypeErr');
-    if (!domainTypeChecked) { domainTypeErr.classList.add('visible'); valid = false; }
-    else domainTypeErr.classList.remove('visible');
-
-    // Domain suffix
-    const suffixVal = suffixSelect.value;
-    const suffixErr = document.getElementById('suffixErr');
-    if (!suffixVal) { suffixErr.classList.add('visible'); valid = false; }
-    else suffixErr.classList.remove('visible');
-
-    if (!valid) return;
-
-    // Submit
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = '⏳ Submitting…';
-    btn.disabled = true;
-
-    try {
-      const formData = new FormData(this);
-      const res = await fetch(this.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
-      if (res.ok) {
-        document.getElementById('successBanner').classList.add('visible');
-        this.reset();
-        suffixSelect.innerHTML = '<option value="">— Select domain type first —</option>';
-        livePriceEl.textContent = '—';
-        btn.textContent = '✓ Submitted';
-        btn.style.background = '#27C93F';
-      } else {
-        btn.textContent = '✗ Error — Try Again';
-        btn.disabled = false;
-        btn.style.background = '#FF5F56';
-        setTimeout(() => { btn.style.background = ''; btn.textContent = '⬡ Request Site'; }, 3000);
-      }
-    } catch {
-      btn.textContent = '✗ Network Error';
-      btn.disabled = false;
-      setTimeout(() => { btn.textContent = '⬡ Request Site'; btn.disabled = false; btn.style.background = ''; }, 3000);
-    }
-  });
-</script>
+  <script src="/assets/js/main.js" defer></script>
 </body>
 </html>
